@@ -1,20 +1,26 @@
 package ru.gapisovii.springcourse;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @Component
+@Scope("singleton")
 public class ClassicalMusic implements Music{
-    private List<String> song = new ArrayList<>();
-    {
-        song.add("classical song1");
-        song.add("classical song2");
-        song.add("classical song3");
+
+    @PostConstruct
+    public void doMyInit() {
+        System.out.println("Doing my initialization");
+    }
+
+    @PreDestroy
+    public void doMyDestroy(){
+        System.out.println("Doing my destruction");
     }
     @Override
-    public List<String> getSong() {
-        return song;
+    public String getSong() {
+        return "classical";
     }
 }

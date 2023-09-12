@@ -2,29 +2,29 @@ package ru.gapisovii.springcourse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
 @Component
 public class MusicPlayer {
-    private ClassicalMusic classicalMusic;
-    private RockMusic rockMusic;
+    @Value("${musicPlayer.name}")
+    private String name;
 
-    @Autowired
-    public MusicPlayer(ClassicalMusic classicalMusic, RockMusic rockMusic) {
-        this.rockMusic = rockMusic;
-        this.classicalMusic = classicalMusic;
+    @Value("${musicPlayer.volume}")
+    private int volume;
+    private Music music1;
+    private Music music2;
+
+    public String getName() {
+        return name;
     }
 
-    public void playMusic(GenreOfMusic genreOfMusic) {
-        Random random = new Random();
-        int randomNum = random.nextInt(3);
-
-        if (genreOfMusic == GenreOfMusic.CLASSICAL){
-            System.out.println(classicalMusic.getSong().get(randomNum));
-        } else {
-            System.out.println(rockMusic.getSong().get(randomNum));
-        }
+    public int getVolume() {
+        return volume;
+    }
+    public String playMusic() {
+        return music1.getSong();
     }
 }
