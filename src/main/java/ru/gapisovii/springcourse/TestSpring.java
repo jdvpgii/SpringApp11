@@ -7,17 +7,14 @@ import java.io.InputStreamReader;
 
 public class TestSpring {
     public static void main(String[] args) {
-        // обращается к "applicationContext.xml", считывает
-        // и помещает все бины в ApplicationContext
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"
         );
 
-        Music music = context.getBean("musicBean", Music.class);
+        MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
 
-        MusicPlayer musicPlayer = new MusicPlayer(music);
-
-        musicPlayer.playMusic();
+        musicPlayer.playMusic(GenreOfMusic.CLASSICAL);
+        musicPlayer.playMusic(GenreOfMusic.ROCK);
 
         context.close();
 
